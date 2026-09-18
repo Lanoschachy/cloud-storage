@@ -1,0 +1,34 @@
+# Environment & secrets — never commit real credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Runtime JSON metadata (auto-created on first run)
+data/*
+!data/.gitkeep
+!data/.htaccess
+
+# User uploads & trash (auto-created folders)
+storage/files/*
+!storage/files/.gitkeep
+storage/trash/*
+!storage/trash/.gitkeep
+!storage/.htaccess
+
+# Logs / cache / temp
+logs/
+*.log
+cache/
+tmp/
+temp/
+*.tmp
+
+# OS / editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*~

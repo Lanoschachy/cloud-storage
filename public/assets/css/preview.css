@@ -1,0 +1,323 @@
+/* Universal Preview Container */
+.preview-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 29, 0.95);
+  backdrop-filter: blur(12px);
+  z-index: 110;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.preview-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Preview Header */
+.preview-header {
+  height: 60px;
+  background-color: rgba(11, 13, 12, 0.7);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  color: #F2F5F3;
+  flex-shrink: 0;
+}
+
+.preview-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  max-width: 70%;
+}
+
+.preview-filename {
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.preview-filemeta {
+  font-size: 0.8rem;
+  color: #A0AAA4;
+  white-space: nowrap;
+}
+
+.preview-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.preview-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #F2F5F3;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  transition: var(--transition);
+}
+
+.preview-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Preview Main Stage */
+.preview-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: auto;
+  position: relative;
+}
+
+/* Image Zoom Viewport & Controls */
+.image-zoom-viewport {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  touch-action: none;
+}
+
+.zoomable-image {
+  max-width: 95%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  user-select: none;
+  transition: transform 0.08s ease-out;
+  transform-origin: center center;
+}
+
+.image-zoom-toolbar {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(11, 13, 12, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  z-index: 115;
+  user-select: none;
+}
+
+.zoom-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #F2F5F3;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.zoom-btn-fit {
+  width: auto;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.zoom-level {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #A0AAA4;
+  min-width: 44px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .image-zoom-toolbar {
+    bottom: 20px;
+    padding: 5px 12px;
+    gap: 8px;
+  }
+}
+
+/* Media Player (Video & Audio) */
+.preview-stage video {
+  max-width: 90%;
+  max-height: 80vh;
+  outline: none;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  background: #000;
+}
+
+.audio-player-wrapper {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 460px;
+}
+
+.audio-icon-box {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--accent-subtle);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.audio-icon-box svg {
+  width: 40px;
+  height: 40px;
+}
+
+.audio-player-wrapper audio {
+  width: 100%;
+  outline: none;
+}
+
+/* PDF Viewer */
+.preview-stage iframe,
+.preview-stage object {
+  width: 100%;
+  height: 100%;
+  max-width: 1000px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  background: #fff;
+}
+
+/* Text / Code Viewer */
+.text-preview-container {
+  width: 100%;
+  max-width: 900px;
+  max-height: 80vh;
+  background-color: #1e1e1e;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.text-preview-header {
+  padding: 8px 16px;
+  background-color: #252526;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8rem;
+  color: #858585;
+  font-family: monospace;
+}
+
+.text-preview-content {
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
+  color: #d4d4d4;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Fallback Card (Office & Unsupported) */
+.fallback-preview-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 40px 32px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 440px;
+}
+
+.fallback-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.fallback-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fallback-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Mobile Responsive Adjustments for Preview */
+@media (max-width: 768px) {
+  .preview-header {
+    height: 54px;
+    padding: 0 12px;
+  }
+
+  .preview-stage {
+    padding: 12px;
+  }
+
+  .preview-stage video {
+    max-width: 100%;
+  }
+
+  .audio-player-wrapper {
+    padding: 20px;
+  }
+}

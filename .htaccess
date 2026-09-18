@@ -1,0 +1,16 @@
+# Disable directory browsing
+Options -Indexes
+
+# Protect sensitive directories
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Prevent direct access to data and storage
+    RewriteRule ^data(/.*)?$ - [F,L]
+    RewriteRule ^storage(/.*)?$ - [F,L]
+    RewriteRule ^app(/.*)?$ - [F,L]
+
+    # Route requests through public/
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
