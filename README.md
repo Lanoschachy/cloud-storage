@@ -2,6 +2,10 @@
 
 Aplikasi cloud storage pribadi (*single-user*) berarsitektur **Modular Monolith** dengan PHP murni, JSON database, dan filesystem storage. Dirancang khusus untuk performa cepat dan kompatibilitas penuh pada shared hosting/cPanel.
 
+## Tampilan
+
+![Dashboard Private Cloud](docs/screenshot-dashboard.png)
+
 ---
 
 ## Fitur Utama
